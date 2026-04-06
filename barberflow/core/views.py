@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente, Barbeiro, Atendimento, User
-from .forms import ClienteForm, BarbeiroForm, AtendimentoForm
+from .forms import ClienteForm, BarbeiroForm, AtendimentoForm, CadastroFuncionarioForm
 
 @login_required
 def lista_users(request):
@@ -19,13 +20,23 @@ def deletar_user(request, user_id):
 @login_required
 def cadastro_user(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CadastroFuncionarioForm(request.POST)
         if form.is_valid():
             usuario = form.save()
+
+            # Cria uma variável para armazenar o nome do cargo selecionado no formulário
+            nome_do_cargo = form.cleaned_data.get('cargo')
+
+            #Pega o cargo selecionado no <select> do formulário e tenta associar o usuário a um grupo com o mesmo nome
+            try:
+                grupo = Group.objects.get(name=nome_do_cargo)
+                usuario.groups.add(grupo)
+            except Group.DoesNotExist:
+                print(f"Grupo '{nome_do_cargo}' não encontrado. O usuário foi criado sem um grupo associado.")  
             login(request, usuario)
             return redirect('lista_users')
     else:
-        form = UserCreationForm()
+        form = CadastroFuncionarioForm()
     return render(request, 'cadastro_user.html', {'form': form})
 
 @login_required
@@ -47,6 +58,18 @@ def cadastro_cliente(request):
 def lista_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'lista_clientes.html', {'clientes': clientes})
+
+@login_required
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    if request.method == "POST":
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_clientes')
+    else:
+        form = ClienteForm(instance=cliente)
+    return render(request, 'editar_cliente.html', {'form': form, 'cliente': cliente})
 
 @login_required
 def deletar_cliente(request, cliente_id):

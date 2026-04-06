@@ -1,5 +1,17 @@
 from django import forms
 from .models import Cliente, Barbeiro, Atendimento
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User, Group
+
+class CadastroFuncionarioForm(UserCreationForm):
+    OPCOES_CARGO = (
+        ('Atendente', 'Atendente'),
+        ('Administrativo', 'Gerência/Administrativo'),
+    )
+    cargo = forms.ChoiceField(choices=OPCOES_CARGO, label='Cargo do Funcionario')
+
+    class Meta(UserCreationForm.Meta):
+        model = User
 
 class ClienteForm(forms.ModelForm):
     class Meta:

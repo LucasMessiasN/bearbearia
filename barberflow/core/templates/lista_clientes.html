@@ -22,6 +22,7 @@
                 <th>{{cliente.email}}</th>
                 <th>{{cliente.telefone}}</th>
                 <th>
+                    <a class="btn btn-outline-warning" href="{% url 'editar_cliente' cliente.id%}">Editar</a>
                     <a class="btn btn-outline-danger" href="{% url 'deletar_cliente' cliente.id %}" onclick="return confirm('Tem certeza que deseja deletar este cliente?')">Deletar</a>
                 </th>
             </tr>

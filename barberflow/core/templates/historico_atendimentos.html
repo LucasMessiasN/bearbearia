@@ -4,6 +4,7 @@
 <div class="container mt-4">
     <h2>Histórico de Atendimentos</h2>
     <hr>
+    <br>
     <form method="GET" class="row g-3 mb-4 bg-light p-3 border rounded">
         <div class="col-md-4">
             <label class="form-label">Data Início</label>
@@ -31,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for atendimento in atendimentos %}
+            {% for atendimento in historico %}
             <tr>
                 <td>{{ atendimento.cliente_atendimento.nome }}</td>
                 <td>{{ atendimento.barbeiro_atendimento.nome_barbeiro }}</td>
