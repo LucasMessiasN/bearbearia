@@ -22,7 +22,7 @@
                 <th>{{barbeiro.email}}</th>
                 <th>{{barbeiro.telefone}}</th>
                 <th>
-                    <a class="btn btn-outline-danger" href="{% url 'deletar_barbeiro' barbeiro.id %}" onclick="return confirm('Tem certeza que deseja deletar este barbeiro?')">Deletar</a>
+                    <a class="btn btn-outline-danger" href="{% url 'deletar_barbeiro' barbeiro.id %}" onclick="return confirm('Tem certeza que deseja deletar este barbeiro?')"><i class="fa-solid fa-trash"></i></a>
                 </th>
             </tr>
             {% endfor %}

@@ -20,7 +20,7 @@
                 <th>{{user.username}}</th>
                 <th>{{user.email}}</th>
                 <th>
-                    <a class="btn btn-outline-danger" href="{% url 'deletar_user' user.id %}" onclick="return confirm('Tem certeza que deseja deletar este usuário?')">Deletar</a>
+                    <a class="btn btn-outline-danger" href="{% url 'deletar_user' user.id %}" onclick="return confirm('Tem certeza que deseja deletar este usuário?')"><i class="fa-solid fa-trash"></i></a>
                 </th>
             </tr>
             {% endfor %}

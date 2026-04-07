@@ -22,9 +22,9 @@
                 <th>{{cliente.email}}</th>
                 <th>{{cliente.telefone}}</th>
                 <th>
-                    <a class="btn btn-outline-primary" href="{% url 'visualizar_cliente' cliente.id%}">Visualizar</a>
-                    <a class="btn btn-outline-warning" href="{% url 'editar_cliente' cliente.id%}">Editar</a>
-                    <a class="btn btn-outline-danger" href="{% url 'deletar_cliente' cliente.id %}" onclick="return confirm('Tem certeza que deseja deletar este cliente?')">Deletar</a>
+                    <a class="btn btn-outline-primary" href="{% url 'visualizar_cliente' cliente.id%}"><i class="fa-solid fa-eye"></i></a>
+                    <a class="btn btn-outline-warning" href="{% url 'editar_cliente' cliente.id%}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-outline-danger" href="{% url 'deletar_cliente' cliente.id %}" onclick="return confirm('Tem certeza que deseja deletar este cliente?')"><i class="fa-solid fa-trash"></i></a>
                 </th>
             </tr>
             {% endfor %}
